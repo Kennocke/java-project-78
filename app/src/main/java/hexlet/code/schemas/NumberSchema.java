@@ -8,17 +8,17 @@ public class NumberSchema extends BaseSchema {
     }
 
 
-    public NumberSchema positive() {
+    public final NumberSchema positive() {
         validators.add((Object obj) -> obj == null || ((Number) obj).intValue() > 0);
         return this;
     }
 
-    public NumberSchema required() {
+    public final NumberSchema required() {
         validators.add(Objects::nonNull);
         return this;
     }
 
-    public NumberSchema range(int start, int end) {
+    public final NumberSchema range(int start, int end) {
         validators.add((Object obj) -> {
             if (obj == null) {
                 return true;

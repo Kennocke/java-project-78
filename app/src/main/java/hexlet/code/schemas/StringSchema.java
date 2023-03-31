@@ -6,17 +6,17 @@ public class StringSchema extends BaseSchema {
         super((Object obj) -> obj == null || obj instanceof String);
     }
 
-    public StringSchema minLength(int minLength) {
+    public final StringSchema minLength(int minLength) {
         validators.add((Object obj) -> obj != null && !(((String) obj).length() < minLength));
         return this;
     }
 
-    public StringSchema required() {
+    public final StringSchema required() {
         validators.add((Object obj) -> obj != null && !((String) obj).isEmpty());
         return this;
     }
 
-    public StringSchema contains(String partOfString) {
+    public final StringSchema contains(String partOfString) {
         validators.add((Object obj) -> obj != null && ((String) obj).contains(partOfString));
         return this;
     }

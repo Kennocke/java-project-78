@@ -12,7 +12,7 @@ public  class BaseSchema {
         validators.add(baseValidator);
     }
 
-    public boolean isValid(Object obj) {
+    public final boolean isValid(Object obj) {
         for (Predicate validator : validators) {
             if (!validator.test(obj)) {
                 return false;
