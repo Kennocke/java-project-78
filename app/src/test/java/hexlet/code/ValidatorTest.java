@@ -22,7 +22,7 @@ public class ValidatorTest {
     }
 
     @Test
-    public void validatorTest() {
+    public void validateStringTest() {
         StringSchema schema = v.string();
 
         assertTrue(schema.isValid(""));
