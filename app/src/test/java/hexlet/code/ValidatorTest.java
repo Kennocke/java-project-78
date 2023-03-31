@@ -1,9 +1,13 @@
 package hexlet.code;
 
+import hexlet.code.schemas.MapSchema;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.StringSchema;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -43,24 +47,44 @@ public class ValidatorTest {
     public void validateIntTest() {
         NumberSchema schema = v.number();
 
-        // Пока не вызван метод required(), null считается валидным
-        assertTrue(schema.isValid(null)); // true
-        assertTrue(schema.positive().isValid(null)); // true
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.positive().isValid(null));
 
         schema.required();
 
-        assertFalse(schema.isValid(null)); // false
-        assertTrue(schema.isValid(10)); // true
-        assertFalse(schema.isValid("5")); // false
-        assertFalse(schema.isValid(-10)); // false
-        //  Ноль - не положительное число
-        assertFalse(schema.isValid(0)); // false
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(10));
+        assertFalse(schema.isValid("5"));
+        assertFalse(schema.isValid(-10));
+
+        assertFalse(schema.isValid(0));
 
         schema.range(5, 10);
 
-        assertTrue(schema.isValid(5)); // true
-        assertTrue(schema.isValid(10)); // true
-        assertFalse(schema.isValid(4)); // false
-        assertFalse(schema.isValid(11)); // false
+        assertTrue(schema.isValid(5));
+        assertTrue(schema.isValid(10));
+        assertFalse(schema.isValid(4));
+        assertFalse(schema.isValid(11));
+    }
+
+    @Test
+    public void validateMapTest() {
+        MapSchema schema = v.map();
+
+        assertTrue(schema.isValid(null));
+
+        schema.required();
+
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(new HashMap()));
+
+        Map<String, String> data = new HashMap<>();
+        data.put("key1", "value1");
+
+        assertTrue(schema.isValid(data));
+        schema.sizeof(2);
+        assertFalse(schema.isValid(data));
+        data.put("key2", "value2");
+        assertTrue(schema.isValid(data));
     }
 }
