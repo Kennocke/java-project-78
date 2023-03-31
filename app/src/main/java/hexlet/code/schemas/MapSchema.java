@@ -17,4 +17,16 @@ public class MapSchema extends BaseSchema {
         validators.add((Object obj) -> obj != null && ((Map) obj).size() == mapSize);
         return this;
     }
+
+    public void shape(Map<String, BaseSchema> innerValidators) {
+        validators.add((Object obj) -> {
+            Map map = (Map) obj;
+            for (Map.Entry<String, BaseSchema> entry : innerValidators.entrySet()) {
+                if (!entry.getValue().isValid(map.get(entry.getKey()))) {
+                    return false;
+                }
+            }
+            return true;
+        });
+    }
 }

@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import java.util.Objects;
 
 public class StringSchema extends BaseSchema {
     public StringSchema() {
@@ -13,7 +12,7 @@ public class StringSchema extends BaseSchema {
     }
 
     public StringSchema required() {
-        validators.add(Objects::nonNull);
+        validators.add((Object obj) -> obj != null && !((String) obj).isEmpty());
         return this;
     }
 
