@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class NumberSchema extends BaseSchema {
     public NumberSchema() {
-        super((Object obj) -> obj == null || obj instanceof Number);
+        super(Number.class);
     }
 
 
@@ -20,10 +20,6 @@ public class NumberSchema extends BaseSchema {
 
     public final NumberSchema range(int start, int end) {
         validators.add((Object obj) -> {
-            if (obj == null) {
-                return true;
-            }
-
             int value = ((Number) obj).intValue();
             return value >= start && value <= end;
         });

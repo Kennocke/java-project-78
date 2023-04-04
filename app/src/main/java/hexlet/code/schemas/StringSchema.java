@@ -3,11 +3,11 @@ package hexlet.code.schemas;
 
 public class StringSchema extends BaseSchema {
     public StringSchema() {
-        super((Object obj) -> obj == null || obj instanceof String);
+        super(String.class);
     }
 
     public final StringSchema minLength(int minLength) {
-        validators.add((Object obj) -> obj != null && !(((String) obj).length() < minLength));
+        validators.add((Object obj) -> !(((String) obj).length() < minLength));
         return this;
     }
 
@@ -17,7 +17,7 @@ public class StringSchema extends BaseSchema {
     }
 
     public final StringSchema contains(String partOfString) {
-        validators.add((Object obj) -> obj != null && ((String) obj).contains(partOfString));
+        validators.add((Object obj) -> ((String) obj).contains(partOfString));
         return this;
     }
 }

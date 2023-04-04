@@ -7,9 +7,9 @@ import java.util.function.Predicate;
 public  class BaseSchema {
     protected final List<Predicate<?>> validators;
 
-    public BaseSchema(Predicate<?> baseValidator) {
+    public BaseSchema(Class clazz) {
         validators = new ArrayList<>();
-        validators.add(baseValidator);
+        validators.add((Object obj) -> obj == null || clazz.isAssignableFrom(obj.getClass()));
     }
 
     public final boolean isValid(Object obj) {
